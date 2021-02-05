@@ -18,8 +18,10 @@ def show_board():
   session["board"] = board
   return render_template("board.html", board = board)
 
+
 @app.route("/submitted_word")
 def test_word():
+  """Handles incoming get request to check if word is valid"""
   word = request.args["word"]
   board = session["board"]
   response = boggle_game.check_valid_word(board, word)
