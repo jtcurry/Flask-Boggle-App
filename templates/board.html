@@ -10,7 +10,7 @@
 
 <body>
 
-  <table class="">
+  <table class="hidden">
     {% for row in board %}
     <tr>{% for letter in row %}
       <td>{{letter}}</td>
@@ -24,7 +24,8 @@
     <button>Submit</button>
   </form>
 
- <button id="play">Play!</button> 
+ <button id="play">Start</button>
+ <button id="playagain" class="hidden">Play Again</button> 
 <p id= "displaymessage"></p>
 <p id="displayscore"></p>
 <p id="displaytimer"></p>

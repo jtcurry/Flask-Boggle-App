@@ -3,9 +3,10 @@ const displayMessage = document.getElementById("displaymessage");
 const displayScore = document.getElementById("displayscore");
 const displayTimer = document.getElementById("displaytimer");
 const playButton = document.getElementById("play");
+const playAgain = document.getElementById("playagain");
 
 let totalScore = 0;
-let timer = 60;
+let timer = 5;
 let usedWords = new Set();
 
 // CALCULATE SCORE FROM A VALID WORD SUBMISSION
@@ -43,7 +44,19 @@ const endDOMGame = () => {
   wordSubmit.classList.add("hidden");
   displayTimer.textContent = "Game Over";
   displayMessage.textContent = "";
+  sendScore();
+  playAgain.classList.remove("hidden");
 };
+
+// SEND SCORE TO SERVER AND CHECK IF A HIGHSCORE
+async function sendScore () {
+  let response  = await axios.post("/send_score", {score: totalScore});
+  if (response.data.record) {
+    displayScore.textContent = `New Record: ${totalScore}`;
+  } else {
+    displayScore.textContent = `Your Score: ${totalScore}`;
+  }
+}
 
 
 
@@ -92,6 +105,11 @@ async function handleSubmit(event) {
   wordSubmit.reset();
 }
 
-//*********************************************************
 
+// HANDLE RELOAD PAGE ON PLAY AGAIN CLICK
+playAgain.addEventListener("click", function() {
+  window.location.reload();
+})
+
+//*********************************************************
 
