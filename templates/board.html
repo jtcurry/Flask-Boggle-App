@@ -5,11 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TESTTTTRTFlask Boggle</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
 
-  <table>
+  <table class="">
     {% for row in board %}
     <tr>{% for letter in row %}
       <td>{{letter}}</td>
@@ -18,14 +19,15 @@
     {% endfor %}
   </table>
 
-  <form id="wordsubmit">
+  <form id="wordsubmit" class="active hidden">
     <input id="wordinput" type="text" name="word">
     <button>Submit</button>
   </form>
 
-  
+ <button id="play">Play!</button> 
 <p id= "displaymessage"></p>
 <p id="displayscore"></p>
+<p id="displaytimer"></p>
 
 </body>
 
