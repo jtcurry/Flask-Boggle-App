@@ -6,7 +6,7 @@ const playButton = document.getElementById("play");
 const playAgain = document.getElementById("playagain");
 
 let totalScore = 0;
-let timer = 5;
+let timer = 60;
 let usedWords = new Set();
 
 // CALCULATE SCORE FROM A VALID WORD SUBMISSION
