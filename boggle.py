@@ -47,7 +47,7 @@ class Boggle():
     def find_from(self, board, word, y, x, seen):
         """Can we find a word on board, starting at x, y?"""
 
-        if x > 4 or y > 4:
+        if x > len(board) - 1 or y > len(board) -1:
             return
 
         # This is called recursively to find smaller and smaller words
@@ -96,7 +96,7 @@ class Boggle():
             if self.find_from(board, word[1:], y - 1, x, seen):
                 return True
 
-        if y < 4:
+        if y < len(board) - 1:
             if self.find_from(board, word[1:], y + 1, x, seen):
                 return True
 
@@ -104,7 +104,7 @@ class Boggle():
             if self.find_from(board, word[1:], y, x - 1, seen):
                 return True
 
-        if x < 4:
+        if x < len(board) - 1:
             if self.find_from(board, word[1:], y, x + 1, seen):
                 return True
 
@@ -113,15 +113,15 @@ class Boggle():
             if self.find_from(board, word[1:], y - 1, x - 1, seen):
                 return True
 
-        if y < 4 and x < 4:
+        if y < len(board) - 1 and x < len(board) - 1:
             if self.find_from(board, word[1:], y + 1, x + 1, seen):
                 return True
 
-        if x > 0 and y < 4:
+        if x > 0 and y < len(board) - 1:
             if self.find_from(board, word[1:], y + 1, x - 1, seen):
                 return True
 
-        if x < 4 and y > 0:
+        if x < len(board) - 1 and y > 0:
             if self.find_from(board, word[1:], y - 1, x + 1, seen):
                 return True
         # Couldn't find the next letter, so this path is dead
@@ -133,9 +133,9 @@ class Boggle():
 
         # Find starting letter --- try every spot on board and,
         # win fast, should we find the word at that place.
-
-        for y in range(0, 5):
-            for x in range(0, 5):
+        size = len(board)
+        for y in range(0, size):
+            for x in range(0, size):
                 if self.find_from(board, word, y, x, seen=set()):
                     return True
 

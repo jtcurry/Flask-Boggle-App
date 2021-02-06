@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Boggle</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Roboto&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  <h1>HELLO</h1>
-  <form action="/board">
-  <input type="number" name="size" min="5">
-  <button>Submit</button>
-</form>
+  <h1 id="maintitle">Boggle</h1>
+
+  <div id="instructionDiv">
+    <h3>Instructions</h3>
+    <p>The goal of the game is to get the highest point total. To gain points, create words from letters that connect
+      with each other. Points will be calculated from the length of the word...you have 60 seconds!</p>
+  </div>
+
+  <form id="sizeselect" action="/board">
+    <h2>Please choose a board size</h2>
+    <input type="number" name="size" min="5" max="15" value=5 required>
+    <button>Submit</button>
+  </form>
+  
 </body>
+
 </html>

@@ -4,11 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TESTTTTRTFlask Boggle</title>
+  <title>Boggle</title>
   <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+
 </head>
 
+
 <body>
+  <h1>Boggle</h1>
+
+  <a href="/"><i class="fas fa-home"></i></a>
+
   <table class="hidden">
     {% for row in board %}
     <tr>{% for letter in row %}
@@ -18,19 +27,20 @@
     {% endfor %}
   </table>
 
-  <form id="wordsubmit" class="active hidden">
+  <form id="wordsubmit" class="active hidden" autocomplete="off">
     <input id="wordinput" type="text" name="word">
     <button>Submit</button>
   </form>
 
- <button id="play">Start</button>
- <button id="playagain" class="hidden">Play Again</button> 
-<p id= "displaymessage"></p>
-<p id="displayscore"></p>
-<p id="displaytimer"></p>
+  <button id="play">Play</button>
+  <button id="playagain" class="hidden">Play Again</button>
+  <p id="displaymessage"></p>
+  <p id="displayscore"></p>
+  <p id="displaytimer"></p>
 
 </body>
 
 <script src="https://unpkg.com/axios/dist/axios.js"></script>
 <script src="/static/boggle.js"></script>
+
 </html>

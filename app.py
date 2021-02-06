@@ -1,11 +1,8 @@
 from flask import Flask, render_template, session, request, jsonify
-from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "newKey"
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-debug = DebugToolbarExtension(app)
 
 from boggle import Boggle
 boggle_game = Boggle()
@@ -42,6 +39,6 @@ def send_score():
   session["highscore"] = max(score, highscore)
   session["played"] = played + 1
   if (score > highscore):
-    return jsonify(record = True)
+    return jsonify(record = True, best = session["highscore"])
   else:
-    return jsonify(record = False)
+    return jsonify(record = False, best = session["highscore"])

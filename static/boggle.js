@@ -6,7 +6,7 @@ const playButton = document.getElementById("play");
 const playAgain = document.getElementById("playagain");
 
 let totalScore = 0;
-let timer = 60;
+let timer = 5;
 let usedWords = new Set();
 
 // CALCULATE SCORE FROM A VALID WORD SUBMISSION
@@ -18,6 +18,9 @@ const calculateWordScore = (currentWord) => {
 // IF TIME STILL AVAILABLE CONTINUE GAME, OTHERWISE END GAME
 const runTimer = () => {
   const intTimer = setInterval(function () {
+    if (timer <= 4) {
+      displayTimer.classList.add("warning");
+    }
     if (timer === 0) {
       clearInterval(intTimer);
       endDOMGame();
@@ -44,22 +47,22 @@ const endDOMGame = () => {
   wordSubmit.classList.add("hidden");
   displayTimer.textContent = "Game Over";
   displayMessage.textContent = "";
+  displayTimer.classList.remove("warning");
   sendScore();
   playAgain.classList.remove("hidden");
 };
 
 // SEND SCORE TO SERVER AND CHECK IF A HIGHSCORE
-async function sendScore () {
-  let response  = await axios.post("/send_score", {score: totalScore});
+async function sendScore() {
+  let response = await axios.post("/send_score", { score: totalScore });
   if (response.data.record) {
     displayScore.textContent = `New Record: ${totalScore}`;
   } else {
-    displayScore.textContent = `Your Score: ${totalScore}`;
+    displayScore.innerText = `Your Score: ${totalScore}\nHighscore: ${response.data.best}`;
   }
 }
 
-
-
+//******************************************************************************* *//
 
 // HANDLE START GAME
 playButton.addEventListener("click", startDOMGame);
@@ -70,7 +73,6 @@ async function startDOMGame() {
   playButton.classList.add("hidden");
   runTimer();
 }
-
 
 // HANDLE SUBMISSION OF A WORD
 if (wordSubmit.classList.contains("active")) {
@@ -86,7 +88,7 @@ async function handleSubmit(event) {
     wordSubmit.reset();
     return;
   }
-  
+
   let response = await axios.get("/submitted_word", {
     params: { word: submission },
   });
@@ -98,18 +100,14 @@ async function handleSubmit(event) {
     displayMessage.textContent = `${submission} is not on the board, try again!`;
   } else if (responseMessage == "ok") {
     totalScore += calculateWordScore(submission);
-    displayMessage.textContent ="";
-    displayScore.textContent = totalScore;
+    displayMessage.textContent = "";
+    displayScore.textContent = `Score: ${totalScore}`;
     usedWords.add(submission);
   }
   wordSubmit.reset();
 }
 
-
 // HANDLE RELOAD PAGE ON PLAY AGAIN CLICK
-playAgain.addEventListener("click", function() {
+playAgain.addEventListener("click", function () {
   window.location.reload();
-})
-
-//*********************************************************
-
+});
